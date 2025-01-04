@@ -1,0 +1,60 @@
+#include <string>
+#include <vector>
+#include <map>
+#include <algorithm> 
+
+using namespace std;
+
+int solution(int a, int b, int c, int d) {
+    int result = 0;
+    map<int, int> num_dic;
+    
+    num_dic[a]++;
+    num_dic[b]++;
+    num_dic[c]++;
+    num_dic[d]++;
+
+    for (auto n1 : num_dic) 
+    {
+        if (n1.second == 4)
+        {
+            result = n1.first * 1111;
+        }
+
+        if (n1.second == 3)
+        { 
+            for (auto n2 : num_dic) 
+            {
+                if (n2.second == 1) 
+                {
+                    result = (10 * n1.first + n2.first) * (10 * n1.first + n2.first);
+                }
+            }
+        }
+
+        if (n1.second == 2)
+        { 
+            result = 1;
+            for (auto n2 : num_dic)
+            {
+                if (n2.second == 2 && n1.first != n2.first) 
+                { 
+                    result = (n1.first + n2.first) * abs(n1.first - n2.first);
+                }
+
+                if (n2.second != n1.second && n1.first != n2.first)
+                {  
+                    result = result * n2.first;
+                }
+
+            }
+        }
+
+        if (result == 0)
+        { 
+            result = min({ a,b,c,d });
+        }
+    }
+
+    return result;
+}

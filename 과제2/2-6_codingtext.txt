@@ -1,0 +1,49 @@
+#include <string>
+#include <vector>
+#include <sstream> 
+
+using namespace std;
+
+vector<string> solution(vector<string> quiz) {
+    vector<string> result;
+
+    for (int i = 0; i < quiz.size(); i++) 
+    {
+        vector<string> check;
+        string string_quiz;
+        stringstream ss(quiz[i]);
+
+        while (getline(ss, string_quiz, ' ')) 
+        {
+            if (string_quiz != "") 
+            {
+                check.push_back(string_quiz);
+            }
+        }
+
+        if (check[1] == "+") 
+        {
+            if (stoi(check[0]) + stoi(check[2]) == stoi(check[4]))
+            {
+                result.push_back("O");
+            }
+            else 
+            {
+                result.push_back("X");
+            }
+        }
+        else if (check[1] == "-") 
+        {
+            if (stoi(check[0]) - stoi(check[2]) == stoi(check[4])) 
+            {
+                result.push_back("O");
+            }
+            else 
+            {
+                result.push_back("X");
+            }
+        }
+    }
+
+    return result;
+}
